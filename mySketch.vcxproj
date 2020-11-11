@@ -182,6 +182,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\actorsearch.cpp" />
+    <ClCompile Include="src\binarysearch.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\app.cpp" />
     <ClCompile Include="..\..\..\addons\ofxGui\src\ofxBaseGui.cpp" />
@@ -196,6 +197,7 @@
     <ClCompile Include="..\..\..\addons\ofxGui\src\ofxToggle.cpp" />
     <ClCompile Include="src\menu.cpp" />
     <ClCompile Include="src\moviesearch.cpp" />
+    <ClCompile Include="src\UnitRectangle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\actorsearch.h" />
@@ -212,9 +214,11 @@
     <ClInclude Include="..\..\..\addons\ofxGui\src\ofxSlider.h" />
     <ClInclude Include="..\..\..\addons\ofxGui\src\ofxSliderGroup.h" />
     <ClInclude Include="..\..\..\addons\ofxGui\src\ofxToggle.h" />
+    <ClInclude Include="src\binarysearch.h" />
     <ClInclude Include="src\menu.h" />
     <ClInclude Include="src\moviesearch.h" />
     <ClInclude Include="src\state.h" />
+    <ClInclude Include="src\UnitRectangle.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="$(OF_ROOT)\libs\openFrameworksCompiled\project\vs\openframeworksLib.vcxproj">

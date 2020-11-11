@@ -46,6 +46,12 @@
     <ClCompile Include="src\moviesearch.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\binarysearch.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UnitRectangle.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -111,6 +117,12 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="src\moviesearch.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\binarysearch.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\UnitRectangle.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

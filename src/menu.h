@@ -27,5 +27,8 @@ private:
 	float cen_x, cen_y;
 	float exitX, exitY;
 	ofRectangle rect1, rect2, rect3;
+	bool isExitSelect=false;
+	bool isText1Select=false;
+	bool isText2Select=false;
 };
 
