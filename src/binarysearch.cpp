@@ -2,6 +2,7 @@
 
 BinarySearch::BinarySearch() {
 	
+	font.load("font.ttf", 16);
 	ofFile file;
 	file.open(ofToDataPath("movies.csv"), ofFile::ReadWrite, false);
 	string line;
@@ -18,8 +19,8 @@ BinarySearch::BinarySearch() {
 			string field = line.substr(0, pos);
 			line = line.substr(pos + 1);
 			int id = 0;
-			stringstream dummy(field);
-			dummy >> id;
+			stringstream fummy(field);
+			fummy >> id;
 			datas.insert(pair<int, string>(id, line));
 		}
 	}
@@ -31,7 +32,7 @@ BinarySearch::BinarySearch() {
 	width = 300.0f;
 	height = 80.0f;
 	x = ofGetWidth() / 2 - ((width * dataSize) / 2);
-	y = ofGetHeight() / 2 - (height / 2)-100;
+	y = ofGetHeight() / 2 - (height / 2)-300;
 	for (int i = 0; i < dataSize; i++)
 	{
 		UnitRectangle unitBox;
@@ -45,13 +46,15 @@ BinarySearch::BinarySearch() {
 
 		x += width;
 	}
-	dummy = 0;
+	dummy = middle;
 }
 void BinarySearch::manageData() {
 	
 }
 void BinarySearch::update() {
-	
+	if (!animatePos.empty()) {
+
+	}
 }
 void BinarySearch::draw() {
 	ofNoFill();
@@ -63,9 +66,10 @@ void BinarySearch::draw() {
 		dummy = animatePos.back();
 		animatePos.pop_back();
 		rects.at(dummy).fillColor = ofColor::red;
-		
+		this_thread::sleep_for(chrono::milliseconds(1000));
 	}
-	ofTranslate(rects.at(dummy).posX-600, 0);
+	int tranPos = (dataSize / 2 - dummy - 2) * 300;
+	ofTranslate(tranPos, 0);
 	for (int i=0;i<rects.size(); i++)
 	{
 		rects.at(i).content = datas.at(i+1);
@@ -74,9 +78,9 @@ void BinarySearch::draw() {
 		std::cout << rects.at(i).posX << "\n";
 	}
 	if (animatePos.empty()) {
-		searchImage.draw(200, y + 200, 200, 300);
+		searchImage.draw(-tranPos+200, y + 200, 200, 300);
+		font.drawString(decData, -tranPos + 500, y + 220);
 	}
-	this_thread::sleep_for(chrono::milliseconds(1000));
 	
 }
 void BinarySearch::start() {
@@ -92,9 +96,14 @@ void BinarySearch::search(string key) {
 			{
 				//search successful
 				searchSuccess = true;
-				bummy = "pics/" + to_string(middle+1) + ".jpg";
+				string bummy = "pics/" + to_string(middle+1) + ".jpg";
 				searchImage.load(bummy);
-				std::cout << "Success!!!";
+				ofFile openDecs;
+				string filename = "decs/" + to_string(middle + 1) + ".txt";
+				openDecs.open(ofToDataPath(filename), ofFile::ReadWrite, false);
+				ofBuffer decs = openDecs.readToBuffer();
+				decData = decs.getText();
+
 				first = 0;
 				last = dataSize - 1;
 				middle = (first + last) / 2;

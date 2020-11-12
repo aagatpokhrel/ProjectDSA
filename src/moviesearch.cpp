@@ -13,6 +13,7 @@ MovieSearch::MovieSearch(int& screenNum) :State(screenNum) {
 	searchRect = ofRectangle(searchX, searchY - font.stringHeight(searchBtn) - 10, font.stringWidth(searchBtn), font.stringHeight(searchBtn));
 	inputField.setup("Search Movie","Apollo 13");
 	inputField.setSize(1000, 50);
+	inputField.setUseTTF(true);
 	inputField.setPosition(50, 100);
 
 }

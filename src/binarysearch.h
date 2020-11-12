@@ -36,7 +36,8 @@ public:
 	bool isStart = false;
 	std::vector <int> animatePos;
 	int dummy ;
-	std::string bummy;
 	ofImage searchImage;
+	ofTrueTypeFont font;
+	string decData;
 };
 
