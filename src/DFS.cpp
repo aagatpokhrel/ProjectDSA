@@ -1,7 +1,7 @@
 #include "DFS.h"
 #include <random>
 
-void DFS::setup() {
+DFS::DFS() {
 	boundingBox.width = ofGetWidth() - 100;
 	boundingBox.height = ofGetHeight() - 200;
 	boundingBox.x = 50;

@@ -52,6 +52,24 @@
     <ClCompile Include="src\UnitRectangle.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\BFS.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DFS.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Graph.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Node.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Queue.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Stack.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -123,6 +141,24 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="src\UnitRectangle.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BFS.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\DFS.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Node.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Queue.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Stack.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Graph.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

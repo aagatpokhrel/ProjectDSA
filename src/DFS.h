@@ -1,13 +1,13 @@
 #pragma once
 #include "Stack.h"
 #include <vector>
-//#include "Graph.cpp"
-#define NODES_NUM 5
+#include "Graph.h"
 
 class DFS
 {
 public:
-	void setup();
+	DFS();
+	//void setup();
 	void update();
 	void draw();
 	void start();
@@ -24,25 +24,25 @@ public:
 
 	ofRectangle boundingBox;
 
-	float graph[NODES_NUM][2] = {
-		{70, 210},
-		{70, 350},
-		{140, 420},
-		{210, 70 },
-		{210, 210},
-		/*{210, 490},
-		{280, 140},
-		{280, 280},
-		{350, 70},
-		{350, 350}*/
-	};
+	//float graph[NODES_NUM][2] = {
+	//	{70, 210},
+	//	{70, 350},
+	//	{140, 420},
+	//	{210, 70 },
+	//	{210, 210},
+	//	/*{210, 490},
+	//	{280, 140},
+	//	{280, 280},
+	//	{350, 70},
+	//	{350, 350}*/
+	//};
 
-	int adjMat[NODES_NUM][NODES_NUM] = {
-		{0,1,1,1,0},
-		{1,0,0,0,0},
-		{1,0,0,0,0},
-		{1,0,0,0,1},
-		{0,0,0,1,0}
-	};
+	//int adjMat[NODES_NUM][NODES_NUM] = {
+	//	{0,1,1,1,0},
+	//	{1,0,0,0,0},
+	//	{1,0,0,0,0},
+	//	{1,0,0,0,1},
+	//	{0,0,0,1,0}
+	//};
 };
 

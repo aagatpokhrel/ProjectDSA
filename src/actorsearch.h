@@ -1,6 +1,9 @@
 #pragma once
 #include "state.h"
 #include "ofMain.h"
+#include "DFS.h"
+//#include "BFS.h"
+
 class ActorSearch :
     public State
 {
@@ -15,10 +18,16 @@ public:
 	void mouseDragged(int x, int y, int button);
 	void mousePressed(int x, int y, int button);
 	void mouseReleased(int x, int y, int button);
+
 private:
+	DFS dfs;
+	//BFS bfs;
+
 	ofTrueTypeFont font;
 	std::string backBtn;
 	int backX, backY;
 	ofRectangle backRect;
+
+	
 };
 

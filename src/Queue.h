@@ -10,8 +10,8 @@ public:
 	bool empty();
 	bool containsNode(Node* node);
 
-	std::vector<Node*> queue;
-	std::vector<Node*>::iterator it;
+	vector<Node*> queue;
+	vector<Node*>::iterator it;
 };
 
 
