@@ -8,7 +8,7 @@ ActorSearch::ActorSearch(int& screenNum) :State(screenNum) {
 	backRect = ofRectangle(backX, backY- font.stringHeight(backBtn)-10, font.stringWidth(backBtn), font.stringHeight(backBtn));
 }
 void ActorSearch::update() {
-
+	dfs.update();
 }
 
 //--------------------------------------------------------------
@@ -16,14 +16,15 @@ void ActorSearch::draw() {
 	ofSetBackgroundColor(0, 0, 0);
 	ofSetColor(130);
 	font.drawString(backBtn, backX, backY);
+	dfs.draw();
 }
 
 //--------------------------------------------------------------
 void ActorSearch::keyPressed(int key) {
-	if (key == ' ')
-		screenNum = 0;
+	if (key == ' ') {
+		dfs.start();
+	}
 }
-
 //--------------------------------------------------------------
 void ActorSearch::keyReleased(int key) {
 
