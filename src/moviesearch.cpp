@@ -9,7 +9,7 @@ MovieSearch::MovieSearch(int& screenNum) :State(screenNum) {
 	backRect = ofRectangle(backX, backY- font.stringHeight(backBtn)-10, font.stringWidth(backBtn), font.stringHeight(backBtn));
 	searchBtn = "Search";
 	searchX = 40;
-	searchY = ofGetHeight() - font.stringHeight(backBtn) - 40;
+	searchY = ofGetHeight() - font.stringHeight(backBtn) - 40; //shouldnt it be searchBtn??
 	searchRect = ofRectangle(searchX, searchY - font.stringHeight(searchBtn) - 10, font.stringWidth(searchBtn), font.stringHeight(searchBtn));
 	inputField.setup("Search Movie","Apollo 13");
 	inputField.setSize(1000, 50);

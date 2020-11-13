@@ -28,6 +28,12 @@ private:
 	int backX, backY;
 	ofRectangle backRect;
 
-	
+	std::string startBtn;
+	int startX,startY;
+	ofRectangle startRect;
+
+	bool isStartSelect = false;
+	bool isBackSelect = false;
+
 };
 

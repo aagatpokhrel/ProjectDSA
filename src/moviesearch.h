@@ -23,10 +23,13 @@ private:
 	std::string backBtn;
 	int backX, backY;
 	ofRectangle backRect;
+
 	std::string searchBtn;
 	int searchX, searchY;
 	ofRectangle searchRect;
+
 	BinarySearch bns;
+
 	std::thread t1;
 	//ofxPanel gui;
 	ofxTextField inputField;
