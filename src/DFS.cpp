@@ -10,7 +10,9 @@ DFS::DFS() {
 	currentFill = ofColor::yellow;
 	doneFill = ofColor::blue;
 	discoveredFill = ofColor::red;
-	undiscoveredFill = ofColor::grey;
+
+
+	/*undiscoveredFill = ofColor::grey;
 
 	for (int i = 0; i < NODES_NUM; i++)
 	{
@@ -28,11 +30,11 @@ DFS::DFS() {
 				auto dest = &graphVec.at(j);
 
 				src->addAdjNode(dest);
-				//dest->addAdjNode(*src);
+				dest->addAdjNode(src);
 
 			}
-		}
-	}
+		}*/
+//}
 	
 }
 
@@ -53,9 +55,14 @@ void DFS::draw() {
 		stackFrontier.it->draw();
 	}*/
 
-	for(graph_it=graphVec.begin();graph_it!=graphVec.end(); ++graph_it)
+	/*for(graph_it=graphVec.begin();graph_it!=graphVec.end(); ++graph_it)
 	{
 		graph_it->draw();
+	}*/
+
+	for (graph.graph_it=graph.graphVec.begin();graph.graph_it!=graph.graphVec.end();graph.graph_it++)
+	{
+		graph.graph_it->draw();
 	}
 
 	//ofPopMatrix();
@@ -69,8 +76,8 @@ void DFS::start() {
 	//Sleep(2000);
 
 	//dfs algorithm
-	int randIndex = rand() % graphVec.size();
-	stackFrontier.push(&graphVec[randIndex]);
+	int randIndex = rand() % graph.graphVec.size();
+	stackFrontier.push(&graph.graphVec[randIndex]);
 
 	/*for (int i = 0; i < stackFrontier.stack.size(); i++)
 	{

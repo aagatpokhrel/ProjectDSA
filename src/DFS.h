@@ -11,18 +11,20 @@ public:
 	void update();
 	void draw();
 	void start();
-
+	
 	ofColor currentFill;
 	ofColor doneFill;
 	ofColor discoveredFill;
-	ofColor undiscoveredFill;
+	//ofColor undiscoveredFill;
 
-	vector<Node> graphVec;
-	vector<Node>::iterator graph_it;
+	/*vector<Node> graphVec;
+	vector<Node>::iterator graph_it;*/
 
 	Stack stackFrontier;
 
 	ofRectangle boundingBox;
+
+	Graph graph;
 
 	//float graph[NODES_NUM][2] = {
 	//	{70, 210},
