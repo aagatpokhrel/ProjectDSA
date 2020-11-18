@@ -9,12 +9,18 @@ MovieSearch::MovieSearch(int& screenNum) :State(screenNum) {
 	backRect = ofRectangle(backX, backY- font.stringHeight(backBtn)-10, font.stringWidth(backBtn), font.stringHeight(backBtn));
 	searchBtn = "Search";
 	searchX = 40;
-	searchY = ofGetHeight() - font.stringHeight(backBtn) - 40; //shouldnt it be searchBtn??
+	searchY = ofGetHeight() - font.stringHeight(searchBtn) - 40;
 	searchRect = ofRectangle(searchX, searchY - font.stringHeight(searchBtn) - 10, font.stringWidth(searchBtn), font.stringHeight(searchBtn));
-	inputField.setup("Search Movie","Apollo 13");
+	
+	inputField.setup("Search Movie","Enter the search key");
+	//inputField.setBackgroundColor(ofColor::white);
+	inputField.setBorderColor(ofColor::red);
+	//inputField.setDefaultTextColor(ofColor::black);
 	inputField.setSize(1000, 50);
 	inputField.setUseTTF(true);
 	inputField.setPosition(50, 100);
+
+	soundPlayer.load(ofToDataPath("Assets/Sound/menuSelect.wav"));
 
 }
 void MovieSearch::update() {
@@ -38,7 +44,10 @@ void MovieSearch::draw() {
 	font.drawString(searchBtn, searchX, searchY);
 	ofSetColor(130);
 	inputField.draw();
+	
+	//cam.begin();
 	bns.draw();
+	//cam.end();
 }
 
 //--------------------------------------------------------------
@@ -79,11 +88,13 @@ void MovieSearch::mousePressed(int x, int y, int button) {
 	if (button == OF_MOUSE_BUTTON_LEFT) {
 		if (backRect.inside(x, y)) {
 			screenNum = 0;
+			soundPlayer.play();
 		}
 	}
 	if (button == OF_MOUSE_BUTTON_LEFT) {
 		if (searchRect.inside(x, y)) {
 			bns.search(searchKey);
+			soundPlayer.play();
 		}
 	}
 }

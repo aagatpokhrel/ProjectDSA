@@ -15,6 +15,8 @@ Menu::Menu(int& screenNum) :State(screenNum) {
 	rect2 = ofRectangle(cen_x, cen_y + 100 - font.stringHeight(str), font.stringWidth(str), font.stringHeight(str));
 	rect3 = ofRectangle(exitX, exitY- font.stringHeight(exitBtn)-10, font.stringWidth(exitBtn), font.stringHeight(exitBtn));
 
+	soundPlayer.load(ofToDataPath("Assets/Sound/menuSelect.wav"));
+
 }
 void Menu::update() {
 	
@@ -89,6 +91,7 @@ void Menu::mousePressed(int x, int y, int button) {
 		if (rect3.inside(x, y)) {
 			OF_EXIT_APP(0);
 		}
+		soundPlayer.play();
 	}
 }
 

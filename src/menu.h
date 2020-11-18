@@ -30,5 +30,7 @@ private:
 	bool isExitSelect=false;
 	bool isText1Select=false;
 	bool isText2Select=false;
+
+	ofSoundPlayer soundPlayer;
 };
 

@@ -18,6 +18,7 @@ public:
 	/*void pause();
 	void stop();*/
 	void start();
+	void reset();
 	void manageData();
 	//void start();
 public:
@@ -39,5 +40,8 @@ public:
 	ofImage searchImage;
 	ofTrueTypeFont font;
 	string decData;
+
+	bool discardLeft = false;
+	bool discardRight = false;
 };
 

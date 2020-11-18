@@ -36,5 +36,9 @@ private:
 	string searchKey;
 	bool isSearchSelect = false;
 	bool isBackSelect = false;
+
+	ofSoundPlayer soundPlayer;
+	//ofEasyCam cam;
 };
+
 

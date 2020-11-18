@@ -29,10 +29,16 @@ BinarySearch::BinarySearch() {
 	first = 0;
 	last = dataSize-1;
 	middle = (first + last) / 2;
-	width = 300.0f;
+	//width = 250.0f;
+
+	width = (ofGetWidth() - 100) / dataSize;
 	height = 80.0f;
-	x = ofGetWidth() / 2 - ((width * dataSize) / 2);
-	y = ofGetHeight() / 2 - (height / 2)-300;
+	/*x = ofGetWidth() / 2 - ((width * dataSize) / 2);
+	y = ofGetHeight() / 2 - (height / 2)-300;*/
+	x = 50;
+	y = ofGetHeight() / 2;
+
+
 	for (int i = 0; i < dataSize; i++)
 	{
 		UnitRectangle unitBox;
@@ -66,26 +72,54 @@ void BinarySearch::draw() {
 		dummy = animatePos.back();
 		animatePos.pop_back();
 		rects.at(dummy).fillColor = ofColor::red;
+
+		if (discardRight)
+		{
+			for (int i = dummy+1; i < rects.size(); i++)
+			{
+				rects.at(i).fillColor = ofColor::grey;
+			}
+			discardRight = false;
+		}
+		else if (discardLeft) {
+			for (int i = 0; i < dummy; i++)
+			{
+				rects.at(i).fillColor = ofColor::grey;
+			}
+			discardLeft = false;
+		}
+
 		this_thread::sleep_for(chrono::milliseconds(1000));
 	}
 	int tranPos = (dataSize / 2 - dummy - 2) * 300;
-	ofTranslate(tranPos, 0);
+	//ofTranslate(tranPos, 0);
 	for (int i=0;i<rects.size(); i++)
 	{
 		rects.at(i).content = datas.at(i+1);
 		rects.at(i).draw();
 		ofSetColor(ofColor::white);
-		std::cout << rects.at(i).posX << "\n";
+		//std::cout << rects.at(i).posX << "\n";
 	}
 	if (animatePos.empty()) {
-		searchImage.draw(-tranPos+200, y + 200, 200, 300);
-		font.drawString(decData, -tranPos + 500, y + 220);
+		searchImage.draw(200, y + 200, 200, 300);
+		font.drawString(decData,500, y + 220);
 	}
 	
 }
 void BinarySearch::start() {
 	isStart = true;
 }
+
+void BinarySearch::reset() {
+	first = 0;
+	last = dataSize - 1;
+	middle = (first + last) / 2;
+
+	for (int i = 0; i < rects.size(); i++) {
+		rects.at(i).fillColor = ofColor::white;
+	}
+}
+
 void BinarySearch::search(string key) {
 	while (first <= last)
 	{
@@ -104,20 +138,20 @@ void BinarySearch::search(string key) {
 				ofBuffer decs = openDecs.readToBuffer();
 				decData = decs.getText();
 
-				first = 0;
-				last = dataSize - 1;
-				middle = (first + last) / 2;
+				reset();
 				break;
 			}
 			//key is less than 
 			else if (key < datas.at(middle + 1))
 			{
+				discardRight = true;
 				last = middle - 1;
 				//dataSize /= 2;
 				/*update("less");*/
 			}
 			else
 			{
+				discardLeft = true;
 				first = middle + 1;
 				//dataSize /= 2;
 				/*update("greater");*/
