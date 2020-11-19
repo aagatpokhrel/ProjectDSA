@@ -39,7 +39,7 @@ DFS::DFS() {
 }
 
 void DFS::update() {
-	draw();
+	//draw();
 	//Sleep(1000);
 }
 
@@ -59,26 +59,48 @@ void DFS::draw() {
 	{
 		graph_it->draw();
 	}*/
+	if (!duplicateStack.empty()) {
+		poppedNode = duplicateStack.pop();
+		poppedNode->isExploredDummy = true;
+		for (int i = 0; i < poppedNode->adjNodes.size(); i++)
+		{
+			auto adjNode = poppedNode->adjNodes[i];
+			if (!adjNode->isExploredDummy && !stackFrontier.containsNode(adjNode))
+			{
+				adjNode->fillColor = discoveredFill;
+			}
+		}
+		//poppedNode->fillColor = doneFill;
+		poppedNode->edgeFillColor = ofColor::darkGreen;
+		this_thread::sleep_for(chrono::milliseconds(500));
+	}
 
-	for (graph.graph_it=graph.graphVec.begin();graph.graph_it!=graph.graphVec.end();graph.graph_it++)
+	for (graph.graph_it = graph.graphVec.begin(); graph.graph_it != graph.graphVec.end(); graph.graph_it++)
 	{
 		graph.graph_it->draw();
 	}
-
+	if (!duplicateStack.empty()) {
+		poppedNode->fillColor = doneFill;
+		this_thread::sleep_for(chrono::milliseconds(500));
+	}
+	for (graph.graph_it = graph.graphVec.begin(); graph.graph_it != graph.graphVec.end(); graph.graph_it++)
+	{
+		graph.graph_it->draw();
+	}
 	//ofPopMatrix();
 }
 
 
 
 void DFS::start() {
-	draw();
-	update();
+	/*draw();
+	update();*/
 	//Sleep(2000);
 
 	//dfs algorithm
 	int randIndex = rand() % graph.graphVec.size();
 	stackFrontier.push(&graph.graphVec[randIndex]);
-
+	duplicateStack.push(&graph.graphVec[randIndex]);
 	/*for (int i = 0; i < stackFrontier.stack.size(); i++)
 	{
 		stackFrontier.stack[i]->fillColor = ofColor::red;
@@ -86,7 +108,7 @@ void DFS::start() {
 
 	while (!stackFrontier.empty()) {
 		Node* poppedNode = stackFrontier.pop();
-		poppedNode->fillColor = currentFill;
+		//poppedNode->fillColor = currentFill;
 		poppedNode->isExplored = true;
 
 		for (int i = 0; i < poppedNode->adjNodes.size(); i++)
@@ -95,14 +117,17 @@ void DFS::start() {
 			if (!adjNode->isExplored && !stackFrontier.containsNode(adjNode))
 			{
 				stackFrontier.push(adjNode);
-				adjNode->fillColor = discoveredFill;
+				duplicateStack.push(adjNode);
+				//adjNode->fillColor = discoveredFill;
 
-				update();
+
+				//update();
 			}
 		}
-		poppedNode->fillColor = doneFill;
-		poppedNode->edgeFillColor = ofColor::darkGreen;
-		update();
+
+		//poppedNode->fillColor = doneFill;
+		//poppedNode->edgeFillColor = ofColor::darkGreen;
+		//update();
 
 		//std::cout << poppedNode->state << " done." << std::endl;
 	}

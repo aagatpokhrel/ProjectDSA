@@ -24,7 +24,7 @@ public:
 	float radius;
 	
 	ofVec2f contentPos;
-
+	bool isExploredDummy;
 	bool isExplored;
 };
 
