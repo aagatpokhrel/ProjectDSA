@@ -11,6 +11,7 @@ public:
 	void update();
 	void draw();
 	void start();
+	void reset();
 	
 	ofColor currentFill;
 	ofColor doneFill;

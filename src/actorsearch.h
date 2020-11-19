@@ -35,5 +35,7 @@ private:
 	bool isStartSelect = false;
 	bool isBackSelect = false;
 
+	ofSoundPlayer soundPlayer;
+
 };
 

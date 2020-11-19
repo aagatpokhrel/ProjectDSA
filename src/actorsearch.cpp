@@ -12,6 +12,8 @@ ActorSearch::ActorSearch(int& screenNum) :State(screenNum) {
 	startY = ofGetHeight() - font.stringHeight(startBtn) - 40;
 	startRect = ofRectangle(startX, startY - font.stringHeight(startBtn) - 10, font.stringWidth(startBtn), font.stringHeight(startBtn));
 
+	soundPlayer.load(ofToDataPath("Assets/Sound/menuSelect.wav"));
+
 }
 void ActorSearch::update() {
 	dfs.update();
@@ -71,11 +73,14 @@ void ActorSearch::mousePressed(int x, int y, int button) {
 	if (button == OF_MOUSE_BUTTON_LEFT) {
 		if (backRect.inside(x, y)) {
 			screenNum = 0;
+			dfs.reset();
+			soundPlayer.play();
 		}
 	}
 	if (button == OF_MOUSE_BUTTON_LEFT) {
 		if (startRect.inside(x, y)) {
 			dfs.start();
+			soundPlayer.play();
 		}
 	}
 }

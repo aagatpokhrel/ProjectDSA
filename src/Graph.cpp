@@ -10,10 +10,17 @@ Graph::Graph() {
 		graphVec.push_back(node);
 	}
 
-	this->addEdge(0, 1);
-	this->addEdge(0, 2);
-	this->addEdge(0, 3);
-	this->addEdge(3, 4);
+	this->addEdge(0,1);
+	this->addEdge(0,4);
+	this->addEdge(4,3);
+	this->addEdge(4,2);
+	this->addEdge(3,6);
+	this->addEdge(3,8);
+	this->addEdge(2,5);
+	this->addEdge(5,7);
+	this->addEdge(7,9);
+	this->addEdge(7,8);
+	this->addEdge(6,8);
 
 	for (int i = 0; i < NODES_NUM; i++)
 	{

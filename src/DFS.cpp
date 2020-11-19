@@ -71,8 +71,8 @@ void DFS::draw() {
 			}
 		}
 		//poppedNode->fillColor = doneFill;
-		poppedNode->edgeFillColor = ofColor::darkGreen;
-		this_thread::sleep_for(chrono::milliseconds(500));
+		poppedNode->edgeFillColor = ofColor::white;
+		this_thread::sleep_for(chrono::milliseconds(2000));
 	}
 
 	for (graph.graph_it = graph.graphVec.begin(); graph.graph_it != graph.graphVec.end(); graph.graph_it++)
@@ -90,7 +90,15 @@ void DFS::draw() {
 	//ofPopMatrix();
 }
 
-
+void DFS::reset() {
+	for (graph.graph_it = graph.graphVec.begin(); graph.graph_it != graph.graphVec.end(); graph.graph_it++)
+	{
+		graph.graph_it->fillColor = ofColor::grey;
+		graph.graph_it->edgeFillColor = ofColor::grey;
+		graph.graph_it->isExplored = false;
+		graph.graph_it->isExploredDummy = false;
+	}
+}
 
 void DFS::start() {
 	/*draw();

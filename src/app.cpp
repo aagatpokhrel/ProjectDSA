@@ -4,7 +4,8 @@
 #include "actorsearch.h"
 //--------------------------------------------------------------
 void App::setup(){
-	//ofSetFrameRate(5);
+	ofSetFrameRate(60);
+	ofSetVerticalSync(true);
 	screenNum = 0;
 	std::unique_ptr<State> menu(new Menu(screenNum));
 	std::unique_ptr<State> movieSearch(new MovieSearch(screenNum));
