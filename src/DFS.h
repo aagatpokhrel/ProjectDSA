@@ -21,7 +21,8 @@ public:
 	vector<Node>::iterator graph_it;*/
 
 	Stack stackFrontier;
-
+	Stack duplicateStack;
+	Node* poppedNode;
 	ofRectangle boundingBox;
 
 	Graph graph;

@@ -3,6 +3,7 @@
 Node::Node(int s) {
 	state = s;
 	radius = 30.0f;
+	isExploredDummy = false;
 	isExplored = false;
 	edgeFillColor = ofColor::grey;
 }
