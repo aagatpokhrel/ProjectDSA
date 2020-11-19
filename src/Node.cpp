@@ -1,8 +1,9 @@
 #include "Node.h"
 
-Node::Node(int s) {
+Node::Node(string s) {
+	font.load("font.ttf",16);
 	state = s;
-	radius = 30.0f;
+	radius = 50.0f;
 	isExploredDummy = false;
 	isExplored = false;
 	edgeFillColor = ofColor::grey;
@@ -59,6 +60,6 @@ void Node::draw() {
 
 	//draw content of node
 	ofSetColor(ofColor::lightGoldenRodYellow);
-	ofDrawBitmapString(ofToString(state), contentPos);
+	font.drawString(state,contentPos.x,contentPos.y);
 
 }

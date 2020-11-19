@@ -12,8 +12,18 @@ ActorSearch::ActorSearch(int& screenNum) :State(screenNum) {
 	startY = ofGetHeight() - font.stringHeight(startBtn) - 40;
 	startRect = ofRectangle(startX, startY - font.stringHeight(startBtn) - 10, font.stringWidth(startBtn), font.stringHeight(startBtn));
 
+	sourceinputField.setup("Actor's Name", "Emma Watson");
+	sourceinputField.setBorderColor(ofColor::red);
+	sourceinputField.setPosition(100, 900);
+	sourceinputField.setSize(400, 100);
+	destinputField.setup("Actor's Name", "Jennifer Lawrence");
+	destinputField.setBorderColor(ofColor::red);
+	destinputField.setPosition(600, 900);
+	destinputField.setSize(400, 100);
 }
 void ActorSearch::update() {
+	source = sourceinputField;
+	destination = destinputField;
 	dfs.update();
 }
 
@@ -33,6 +43,8 @@ void ActorSearch::draw() {
 	}
 	font.drawString(startBtn, startX, startY);
 	ofSetColor(130);
+	sourceinputField.draw();
+	destinputField.draw();
 	dfs.draw();
 }
 
@@ -70,12 +82,13 @@ void ActorSearch::mouseDragged(int x, int y, int button) {
 void ActorSearch::mousePressed(int x, int y, int button) {
 	if (button == OF_MOUSE_BUTTON_LEFT) {
 		if (backRect.inside(x, y)) {
+			dfs.reset();
 			screenNum = 0;
 		}
 	}
 	if (button == OF_MOUSE_BUTTON_LEFT) {
 		if (startRect.inside(x, y)) {
-			dfs.start();
+			dfs.start(source,destination);
 		}
 	}
 }
