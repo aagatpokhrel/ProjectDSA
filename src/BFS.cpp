@@ -14,7 +14,7 @@ void BFS::setup() {
 
 	for (int i = 0; i < NODES_NUM; i++)
 	{
-		Node node(i);
+		Node node(to_string(i));
 		node.setup(ofVec2f(graph[i][0], graph[i][1]), undiscoveredFill);
 		graphVec.push_back(node);
 	}

@@ -2,6 +2,7 @@
 #include "state.h"
 #include "ofMain.h"
 #include "DFS.h"
+#include "ofxGui.h"
 //#include "BFS.h"
 
 class ActorSearch :
@@ -36,6 +37,11 @@ private:
 	bool isBackSelect = false;
 
 	ofSoundPlayer soundPlayer;
+
+	ofxTextField sourceinputField;
+	ofxTextField destinputField;
+	string source;
+	string destination;
 
 };
 

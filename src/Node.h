@@ -5,7 +5,7 @@
 class Node
 {
 public:
-	Node(int s);
+	Node(string s);
 
 	void addAdjNode(Node* node);
 	bool containsAdjNode(Node* node);
@@ -14,7 +14,7 @@ public:
 	void update();
 	void draw();
 
-	int state;
+	string state;
 	std::vector<Node*> adjNodes;
 	std::vector<Node*>::iterator it;
 
@@ -26,5 +26,6 @@ public:
 	ofVec2f contentPos;
 	bool isExploredDummy;
 	bool isExplored;
+	ofTrueTypeFont font;
 };
 

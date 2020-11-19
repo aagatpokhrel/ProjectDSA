@@ -10,7 +10,28 @@ DFS::DFS() {
 	currentFill = ofColor::yellow;
 	doneFill = ofColor::blue;
 	discoveredFill = ofColor::red;
-
+	ofFile file;
+	file.open(ofToDataPath("people.csv"), ofFile::ReadWrite, false);
+	string line;
+	int pos;
+	int i = 0;
+	if (!file.is_open())
+	{
+		printf(" can't open the file ");
+		return;
+	}
+	while (getline(file, line))
+	{
+		while ((pos = line.find(',')) >= 0)
+		{
+			string field = line.substr(0, pos);
+			line = line.substr(pos + 1);
+			int id = 0;
+			stringstream fummy(field);
+			fummy >> id;
+			actors.insert(pair<string, int>(line,id));
+		}
+	}
 
 	/*undiscoveredFill = ofColor::grey;
 
@@ -37,7 +58,15 @@ DFS::DFS() {
 //}
 	
 }
-
+void DFS::reset() {
+	for (graph.graph_it = graph.graphVec.begin(); graph.graph_it != graph.graphVec.end(); graph.graph_it++)
+	{
+		graph.graph_it->fillColor = ofColor::grey;
+		graph.graph_it->edgeFillColor = ofColor::grey;
+		graph.graph_it->isExplored = false;
+		graph.graph_it->isExploredDummy = false;
+	}
+}
 void DFS::update() {
 	//draw();
 	//Sleep(1000);
@@ -69,6 +98,12 @@ void DFS::draw() {
 			{
 				adjNode->fillColor = discoveredFill;
 			}
+			else if (adjNode->state == source || adjNode->state == destination) {
+				adjNode->fillColor = currentFill;
+			}
+			else {
+				continue;
+			}
 		}
 		//poppedNode->fillColor = doneFill;
 		poppedNode->edgeFillColor = ofColor::white;
@@ -90,25 +125,20 @@ void DFS::draw() {
 	//ofPopMatrix();
 }
 
-void DFS::reset() {
-	for (graph.graph_it = graph.graphVec.begin(); graph.graph_it != graph.graphVec.end(); graph.graph_it++)
-	{
-		graph.graph_it->fillColor = ofColor::grey;
-		graph.graph_it->edgeFillColor = ofColor::grey;
-		graph.graph_it->isExplored = false;
-		graph.graph_it->isExploredDummy = false;
-	}
-}
-
-void DFS::start() {
+void DFS::start(string sour, string dest) {
 	/*draw();
 	update();*/
 	//Sleep(2000);
-
+	source = sour;
+	destination = dest;
+	
+	//std::cout << source << destination;
 	//dfs algorithm
-	int randIndex = rand() % graph.graphVec.size();
-	stackFrontier.push(&graph.graphVec[randIndex]);
-	duplicateStack.push(&graph.graphVec[randIndex]);
+	int s = actors.at(source)-100;
+	int d = actors.at(destination)-100;
+	std::cout << s << d;
+	stackFrontier.push(&graph.graphVec[s]);
+	duplicateStack.push(&graph.graphVec[s]);
 	/*for (int i = 0; i < stackFrontier.stack.size(); i++)
 	{
 		stackFrontier.stack[i]->fillColor = ofColor::red;

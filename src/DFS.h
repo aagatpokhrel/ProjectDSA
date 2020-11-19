@@ -10,9 +10,9 @@ public:
 	//void setup();
 	void update();
 	void draw();
-	void start();
+	void start(string, string);
 	void reset();
-	
+
 	ofColor currentFill;
 	ofColor doneFill;
 	ofColor discoveredFill;
@@ -25,9 +25,9 @@ public:
 	Stack duplicateStack;
 	Node* poppedNode;
 	ofRectangle boundingBox;
-
+	std::map<string, int> actors;
 	Graph graph;
-
+	string source, destination;
 	//float graph[NODES_NUM][2] = {
 	//	{70, 210},
 	//	{70, 350},

@@ -30,7 +30,7 @@ private:
 
 	BinarySearch bns;
 
-	std::thread t1;
+	//std::thread t1;
 	//ofxPanel gui;
 	ofxTextField inputField;
 	string searchKey;
