@@ -1,6 +1,7 @@
 #include "binarysearch.h"
 
 BinarySearch::BinarySearch() {
+	soundPlayer.load(ofToDataPath("Assets/Sound/middleAnim.wav"));
 	
 	font.load("font.ttf", 16);
 	ofFile file;
@@ -95,6 +96,11 @@ void BinarySearch::draw() {
 		animatePos.pop_back();
 		rects.at(dummy).fillColor = ofColor::red;
 
+		if (playSound) {
+			soundPlayer.play();
+		}
+		playSound = true;
+
 		/*if (discardRight)
 		{
 			for (int i = dummy+1; i < rects.size(); i++)
@@ -113,7 +119,7 @@ void BinarySearch::draw() {
 
 		this_thread::sleep_for(chrono::milliseconds(1000));
 	}
-	int tranPos = (dataSize / 2 - dummy - 2) * 300;
+	//int tranPos = (dataSize / 2 - dummy - 2) * 300;
 	//ofTranslate(tranPos, 0);
 	for (int i=0;i<rects.size(); i++)
 	{
@@ -122,15 +128,27 @@ void BinarySearch::draw() {
 		ofSetColor(ofColor::white);
 		//std::cout << rects.at(i).posX << "\n";
 	}
-	if (animatePos.empty() && isStart) {
+	if (animatePos.empty() && isStart) { // still buggy
+		if (searchSuccess)
+		{
+			searchImage.draw(200, y + 200, 200, 300);
+			font.drawString(decData, 500, y + 220);
+		}
+		else {
+			ofSetColor(ofColor::red);
+			noMatchFont.load("font.ttf", 26);
+			noMatchFont.drawString("No match found", 800, 800);
+		}
 		for (int i = 0; i < rects.size(); i++)
 		{
 			if (i != dummy) {
 				rects.at(i).fillColor = ofColor::grey;
 			}
 		}
-		searchImage.draw(200, y + 200, 200, 300);
-		font.drawString(decData,500, y + 220);
+		if (playSound) {
+			soundPlayer.play();
+		}
+		playSound = false;
 	}
 	
 }
@@ -143,9 +161,22 @@ void BinarySearch::reset() {
 	last = dataSize - 1;
 	middle = (first + last) / 2;
 
+	isStart = false;
+	searchSuccess = false;
+	playSound = false;
+
+	animatePos.clear();
+
 	for (int i = 0; i < rects.size(); i++) {
 		rects.at(i).fillColor = ofColor::white;
 	}
+}
+
+int BinarySearch::compareString(string s1, string s2) {
+	transform(s1.begin(), s1.end(), s1.begin(), ::toupper);
+	transform(s2.begin(), s2.end(), s2.begin(), ::toupper);
+
+	return s1.compare(s2);
 }
 
 void BinarySearch::search(string key) {
@@ -156,7 +187,7 @@ void BinarySearch::search(string key) {
 		/*if (isStart) {*/
 			animatePos.push_back(middle);
 			/*rects.at(middle).fillColor = ofColor::red;*/
-			if (datas.at(middle + 1) == key)
+			if (compareString(datas.at(middle + 1),key)==0)
 			{
 				//search successful
 				searchSuccess = true;
@@ -168,11 +199,11 @@ void BinarySearch::search(string key) {
 				ofBuffer decs = openDecs.readToBuffer();
 				decData = decs.getText();
 
-				reset();
+				//reset();
 				break;
 			}
 			//key is less than 
-			else if (key < datas.at(middle + 1))
+			else if (compareString(key,datas.at(middle + 1))==-1)
 			{
 				//discardRight = true;
 				last = middle - 1;

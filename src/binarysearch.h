@@ -17,6 +17,7 @@ public:
 	void update();
 	void draw();
 	void search(std::string key);
+	int compareString(string s1, string s2);
 	/*void pause();
 	void stop();*/
 	void start();
@@ -32,7 +33,7 @@ public:
 	float width;
 	float height;
 	float arrX;
-	bool searchSuccess;
+	bool searchSuccess = false;;
 	ofColor fillColor;
 	int colorPos = -1;
 	int first, last , middle;
@@ -41,9 +42,13 @@ public:
 	int dummy ;
 	ofImage searchImage;
 	ofTrueTypeFont font;
+	ofTrueTypeFont noMatchFont;
 	string decData;
 
 	bool discardLeft = false;
 	bool discardRight = false;
+	bool playSound = false;
+
+	ofSoundPlayer soundPlayer;
 };
 

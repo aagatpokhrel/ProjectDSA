@@ -31,7 +31,7 @@ void MovieSearch::update() {
 //--------------------------------------------------------------
 void MovieSearch::draw() {
 	
-	ofSetBackgroundColor(0, 0, 0);
+	ofSetBackgroundColor(ofColor::black);
 	ofSetColor(130);
 	if (isBackSelect) {
 		ofSetColor(0, 128, 0);
@@ -89,6 +89,13 @@ void MovieSearch::mousePressed(int x, int y, int button) {
 		if (backRect.inside(x, y)) {
 			screenNum = 0;
 			soundPlayer.play();
+			bns.reset();
+			inputField.setup("Search Movie", "Enter the search key");
+			inputField.setBorderColor(ofColor::red);
+			inputField.setSize(1000, 50);
+			inputField.setUseTTF(true);
+			inputField.setPosition(50, 100);
+
 		}
 	}
 	if (button == OF_MOUSE_BUTTON_LEFT) {
