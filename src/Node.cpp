@@ -1,10 +1,10 @@
 #include "Node.h"
 
 Node::Node(string s) {
-	font.load("font.ttf",16);
+	font.load("font.ttf",8);
 	state = s;
 
-	radius = 50.0f;
+	radius = 55.0f;
 
 	isExploredDummy = false;
 	isExplored = false;
@@ -29,7 +29,7 @@ void Node::setup(ofVec2f ctre,ofColor color) {
 	centre = ctre;
 	fillColor = color;
 
-	contentPos = ofVec2f(ctre.x - 2, ctre.y - 2);
+	contentPos = ofVec2f(ctre.x - 50, ctre.y);
 }
 
 void Node::update() {
@@ -61,7 +61,7 @@ void Node::draw() {
 	ofDrawCircle(centre, radius);
 
 	//draw content of node
-	ofSetColor(ofColor::lightGoldenRodYellow);
+	ofSetColor(ofColor::antiqueWhite);
 	font.drawString(state,contentPos.x,contentPos.y);
 
 }

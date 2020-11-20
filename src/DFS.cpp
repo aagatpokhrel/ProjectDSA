@@ -107,7 +107,7 @@ void DFS::draw() {
 		}
 		//poppedNode->fillColor = doneFill;
 		poppedNode->edgeFillColor = ofColor::white;
-		this_thread::sleep_for(chrono::milliseconds(2000));
+		this_thread::sleep_for(chrono::milliseconds(500));
 	}
 
 	for (graph.graph_it = graph.graphVec.begin(); graph.graph_it != graph.graphVec.end(); graph.graph_it++)

@@ -2,7 +2,7 @@
 
 Graph::Graph() {
 	ofColor undiscoveredFill = ofColor::grey;
-	font.load("font.ttf", 16);
+	font.load("font.ttf", 5);
 	ofFile file;
 	file.open(ofToDataPath("people.csv"), ofFile::ReadWrite, false);
 	string line;
