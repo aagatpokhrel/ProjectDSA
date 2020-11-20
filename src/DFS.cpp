@@ -1,5 +1,6 @@
 #include "DFS.h"
 #include <random>
+#include <algorithm>
 
 DFS::DFS() {
 	boundingBox.width = ofGetWidth() - 100;
@@ -7,7 +8,7 @@ DFS::DFS() {
 	boundingBox.x = 50;
 	boundingBox.y = 50;
 
-	currentFill = ofColor::yellow;
+	foundFill = ofColor::green;
 	doneFill = ofColor::blue;
 	discoveredFill = ofColor::red;
 	ofFile file;
@@ -99,14 +100,14 @@ void DFS::draw() {
 				adjNode->fillColor = discoveredFill;
 			}
 			else if (adjNode->state == source || adjNode->state == destination) {
-				adjNode->fillColor = currentFill;
+				adjNode->fillColor = foundFill;
 			}
 			else {
 				continue;
 			}
 		}
 		//poppedNode->fillColor = doneFill;
-		poppedNode->edgeFillColor = ofColor::white;
+		
 		this_thread::sleep_for(chrono::milliseconds(500));
 	}
 
@@ -116,6 +117,10 @@ void DFS::draw() {
 	}
 	if (!duplicateStack.empty()) {
 		poppedNode->fillColor = doneFill;
+		poppedNode->edgeFillColor = ofColor::white;
+		if (poppedNode->state == source || poppedNode->state == destination) {
+			poppedNode->fillColor = foundFill;
+		}
 		this_thread::sleep_for(chrono::milliseconds(500));
 	}
 	for (graph.graph_it = graph.graphVec.begin(); graph.graph_it != graph.graphVec.end(); graph.graph_it++)
@@ -169,4 +174,6 @@ void DFS::start(string sour, string dest) {
 
 		//std::cout << poppedNode->state << " done." << std::endl;
 	}
+	std::reverse(stackFrontier.stack.begin(),stackFrontier.stack.end());
+	std::reverse(duplicateStack.stack.begin(), duplicateStack.stack.end());
 }

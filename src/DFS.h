@@ -13,7 +13,7 @@ public:
 	void start(string, string);
 	void reset();
 
-	ofColor currentFill;
+	ofColor foundFill;
 	ofColor doneFill;
 	ofColor discoveredFill;
 	//ofColor undiscoveredFill;
