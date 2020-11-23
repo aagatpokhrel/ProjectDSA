@@ -108,7 +108,7 @@ void DFS::draw() {
 		}
 		//poppedNode->fillColor = doneFill;
 		
-		this_thread::sleep_for(chrono::milliseconds(500));
+		this_thread::sleep_for(chrono::milliseconds(1500));
 	}
 
 	for (graph.graph_it = graph.graphVec.begin(); graph.graph_it != graph.graphVec.end(); graph.graph_it++)
@@ -121,7 +121,7 @@ void DFS::draw() {
 		if (poppedNode->state == source || poppedNode->state == destination) {
 			poppedNode->fillColor = foundFill;
 		}
-		this_thread::sleep_for(chrono::milliseconds(500));
+		this_thread::sleep_for(chrono::milliseconds(1500));
 	}
 	for (graph.graph_it = graph.graphVec.begin(); graph.graph_it != graph.graphVec.end(); graph.graph_it++)
 	{

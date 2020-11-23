@@ -70,6 +70,9 @@
     <ClCompile Include="src\Stack.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\actorsearch2.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -161,6 +164,7 @@
     <ClInclude Include="src\Graph.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="src\actorsearch2.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="icon.rc" />

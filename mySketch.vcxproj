@@ -182,6 +182,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\actorsearch.cpp" />
+    <ClCompile Include="src\actorsearch2.cpp" />
     <ClCompile Include="src\BFS.cpp" />
     <ClCompile Include="src\binarysearch.cpp" />
     <ClCompile Include="src\DFS.cpp" />
@@ -207,6 +208,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\actorsearch.h" />
+    <ClInclude Include="src\actorsearch2.h" />
     <ClInclude Include="src\app.h" />
     <ClInclude Include="..\..\..\addons\ofxGui\src\ofxBaseGui.h" />
     <ClInclude Include="..\..\..\addons\ofxGui\src\ofxButton.h" />

@@ -2,6 +2,8 @@
 #include "menu.h"
 #include "moviesearch.h"
 #include "actorsearch.h"
+#include "actorsearch2.h"
+
 //--------------------------------------------------------------
 void App::setup(){
 	ofSetFrameRate(60);
@@ -10,9 +12,12 @@ void App::setup(){
 	std::unique_ptr<State> menu(new Menu(screenNum));
 	std::unique_ptr<State> movieSearch(new MovieSearch(screenNum));
 	std::unique_ptr<State> actorSearch(new ActorSearch(screenNum));
+	std::unique_ptr<State> actorSearch2(new ActorSearch2(screenNum));
+	
 	states.push_back(std::move(menu));
 	states.push_back(std::move(movieSearch));
 	states.push_back(std::move(actorSearch));
+	states.push_back(std::move(actorSearch2));
 }
 
 //--------------------------------------------------------------
