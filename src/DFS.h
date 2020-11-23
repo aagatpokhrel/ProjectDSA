@@ -2,6 +2,7 @@
 #include "Stack.h"
 #include <vector>
 #include "Graph.h"
+#include <array>
 
 class DFS
 {
@@ -26,8 +27,14 @@ public:
 	Node* poppedNode;
 	ofRectangle boundingBox;
 	std::map<string, int> actors;
+	vector<int> moviesNum;
+	//std::map<int, vector<int>> stars;
 	Graph graph;
 	string source, destination;
+	Node* destNode;
+	std::array<std::vector<int>, 19> stars;
+	//int distance=0;
+	void algorithm();
 	//float graph[NODES_NUM][2] = {
 	//	{70, 210},
 	//	{70, 350},

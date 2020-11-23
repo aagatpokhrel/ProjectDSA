@@ -22,7 +22,8 @@ public:
 	ofColor fillColor;
 	ofColor edgeFillColor;
 	float radius;
-	
+	Node* parent;
+	int distFromSource = 0;
 	ofVec2f contentPos;
 	bool isExploredDummy;
 	bool isExplored;
