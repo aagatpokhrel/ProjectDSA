@@ -4,16 +4,19 @@ Menu::Menu(int& screenNum) :State(screenNum) {
 	font.load("font.ttf", 32);
 	title = "VISUALIZER DSA";
 	str = "Search Movies From : ";
-	text1 = "Movie Collection (Binary Search)";
-	text2 = "Actors (Depth First Search)";
+	text1 = "Binary Search";
+	text2 = "Depth First Search";
+	text3 = "Breadth First Search";
 	exitBtn = "Exit";
+
 	cen_x = (ofGetWidth() - font.stringWidth(str)) / 2;
 	cen_y = (ofGetHeight() - font.stringHeight(str)) / 2;
 	exitX = ofGetWidth() - font.stringWidth(exitBtn) - 40;
 	exitY = ofGetHeight() - font.stringHeight(exitBtn) - 40;
 	rect1 = ofRectangle(cen_x, cen_y + 60 - font.stringHeight(str), font.stringWidth(str), font.stringHeight(str));
-	rect2 = ofRectangle(cen_x, cen_y + 100 - font.stringHeight(str), font.stringWidth(str), font.stringHeight(str));
-	rect3 = ofRectangle(exitX, exitY- font.stringHeight(exitBtn)-10, font.stringWidth(exitBtn), font.stringHeight(exitBtn));
+	rect2 = ofRectangle(cen_x, cen_y + 120 - font.stringHeight(str), font.stringWidth(str), font.stringHeight(str));
+	rect3 = ofRectangle(cen_x, cen_y + 180 - font.stringHeight(str), font.stringWidth(str), font.stringHeight(str));
+	rect4 = ofRectangle(exitX, exitY- font.stringHeight(exitBtn)-10, font.stringWidth(exitBtn), font.stringHeight(exitBtn));
 
 	soundPlayer.load(ofToDataPath("Assets/Sound/menuSelect.wav"));
 
@@ -37,7 +40,11 @@ void Menu::draw() {
 	ofSetColor(130);
 	if (isText2Select)
 		ofSetColor(0, 128, 0);
-	font.drawString(text2, cen_x, cen_y + 100);
+	font.drawString(text2, cen_x, cen_y + 120);
+	ofSetColor(130);
+	if (isText3Select)
+		ofSetColor(0, 128, 0);
+	font.drawString(text3, cen_x, cen_y + 180);
 	ofSetColor(130);
 	if (isExitSelect)
 		ofSetColor(0, 128, 0);
@@ -64,11 +71,15 @@ void Menu::mouseMoved(int x, int y) {
 		isText2Select = true;
 	}
 	else if (rect3.inside(x, y)) {
-		isExitSelect = true;
+		isText3Select = true;
 	}
+	else if (rect4.inside(x, y)) {
+			isExitSelect = true;
+		}
 	else {
 		isText1Select = false;
 		isText2Select = false;
+		isText3Select = false;
 		isExitSelect = false;
 	}
 }
@@ -89,6 +100,9 @@ void Menu::mousePressed(int x, int y, int button) {
 			screenNum = 2;
 		}
 		if (rect3.inside(x, y)) {
+			screenNum = 3;
+		}
+		if (rect4.inside(x, y)) {
 			OF_EXIT_APP(0);
 		}
 		soundPlayer.play();

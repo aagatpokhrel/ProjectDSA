@@ -21,15 +21,17 @@ private:
 	std::string str;
 	std::string text1;
 	std::string text2;
+	std::string text3;
 	std::string title;
 	std::string exitBtn;
 	int posx, posy;
 	float cen_x, cen_y;
 	float exitX, exitY;
-	ofRectangle rect1, rect2, rect3;
+	ofRectangle rect1, rect2, rect3,rect4;
 	bool isExitSelect=false;
 	bool isText1Select=false;
 	bool isText2Select=false;
+	bool isText3Select=false;
 
 	ofSoundPlayer soundPlayer;
 };

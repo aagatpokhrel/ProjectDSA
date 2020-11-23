@@ -1,12 +1,12 @@
-#include "actorsearch.h"
+#include "actorsearch2.h"
 
-ActorSearch::ActorSearch(int& screenNum) :State(screenNum) {
+ActorSearch2::ActorSearch2(int& screenNum) :State(screenNum) {
 	font.load("font.ttf", 32);
 	backBtn = "Back";
 	backX = ofGetWidth() - font.stringWidth(backBtn) - 40;
 	backY = ofGetHeight() - font.stringHeight(backBtn) - 40;
-	backRect = ofRectangle(backX, backY- font.stringHeight(backBtn)-10, font.stringWidth(backBtn), font.stringHeight(backBtn));
-	
+	backRect = ofRectangle(backX, backY - font.stringHeight(backBtn) - 10, font.stringWidth(backBtn), font.stringHeight(backBtn));
+
 	startBtn = "Start";
 	startX = 40;
 	startY = ofGetHeight() - font.stringHeight(startBtn) - 40;
@@ -24,14 +24,14 @@ ActorSearch::ActorSearch(int& screenNum) :State(screenNum) {
 	destinputField.setSize(400, 100);
 
 }
-void ActorSearch::update() {
+void ActorSearch2::update() {
 	source = sourceinputField;
 	destination = destinputField;
-	dfs.update();
+	bfs.update();
 }
 
 //--------------------------------------------------------------
-void ActorSearch::draw() {
+void ActorSearch2::draw() {
 	ofSetBackgroundColor(0, 0, 0);
 	ofSetColor(130);
 	if (isBackSelect)
@@ -48,22 +48,22 @@ void ActorSearch::draw() {
 	ofSetColor(130);
 	sourceinputField.draw();
 	destinputField.draw();
-	dfs.draw();
+	bfs.draw();
 }
 
 //--------------------------------------------------------------
-void ActorSearch::keyPressed(int key) {
+void ActorSearch2::keyPressed(int key) {
 	if (key == ' ') {
 		//dfs.start();
 	}
 }
 //--------------------------------------------------------------
-void ActorSearch::keyReleased(int key) {
+void ActorSearch2::keyReleased(int key) {
 
 }
 
 //--------------------------------------------------------------
-void ActorSearch::mouseMoved(int x, int y) {
+void ActorSearch2::mouseMoved(int x, int y) {
 	if (backRect.inside(x, y)) {
 		isBackSelect = true;
 	}
@@ -77,17 +77,17 @@ void ActorSearch::mouseMoved(int x, int y) {
 }
 
 //--------------------------------------------------------------
-void ActorSearch::mouseDragged(int x, int y, int button) {
+void ActorSearch2::mouseDragged(int x, int y, int button) {
 
 }
 
 //--------------------------------------------------------------
-void ActorSearch::mousePressed(int x, int y, int button) {
+void ActorSearch2::mousePressed(int x, int y, int button) {
 	if (button == OF_MOUSE_BUTTON_LEFT) {
 		if (backRect.inside(x, y)) {
-			dfs.reset();
+			bfs.reset();
 			screenNum = 0;
-			dfs.reset();
+			bfs.reset();
 			soundPlayer.play();
 		}
 	}
@@ -95,12 +95,12 @@ void ActorSearch::mousePressed(int x, int y, int button) {
 		if (startRect.inside(x, y)) {
 
 			soundPlayer.play();
-			dfs.start(source,destination);
+			bfs.start(source, destination);
 		}
 	}
 }
 
 //--------------------------------------------------------------
-void ActorSearch::mouseReleased(int x, int y, int button) {
+void ActorSearch2::mouseReleased(int x, int y, int button) {
 
 }
