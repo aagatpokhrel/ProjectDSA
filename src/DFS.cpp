@@ -3,6 +3,7 @@
 #include <algorithm>
 
 DFS::DFS() {
+	font.load("font.ttf", 14);
 	boundingBox.width = ofGetWidth() - 100;
 	boundingBox.height = ofGetHeight() - 200;
 	boundingBox.x = 50;
@@ -53,12 +54,26 @@ DFS::DFS() {
 			int movieId = 0;
 			stringstream gummy(markup);
 			gummy >> movieId;
-			//std::cout << actorId << "\t" << movieId <<"\n";
 			stars[actorId - 100].push_back(movieId);
 		}
 	}
-	
-	
+	file.open(ofToDataPath("movies.csv"), ofFile::ReadWrite, false);
+	string lines;
+	int position;
+	if (!file.is_open())
+	{
+		printf(" can't open the file ");
+		return;
+	}
+	while (getline(file, lines))
+	{
+		while ((position = lines.find(',')) >= 0)
+		{
+			lines = lines.substr(position + 1);
+			movies.push_back(lines);
+		}
+	}
+
 }
 void DFS::reset() {
 	for (graph.graph_it = graph.graphVec.begin(); graph.graph_it != graph.graphVec.end(); graph.graph_it++)
@@ -76,7 +91,7 @@ void DFS::update() {
 void DFS::draw() {
 	
 	if (!duplicateStack.empty()) {
-		poppedNode = duplicateStack.pop();
+		Node * poppedNode = duplicateStack.pop();
 		//std::cout << poppedNode->state << "\n";
 		poppedNode->edgeFillColor = ofColor::white;
 		if (!poppedNode->isExploredDummy && duplicateStack.containsNode(poppedNode)) {
@@ -99,31 +114,35 @@ void DFS::draw() {
 		Node* newNode = stackFrontier.pop();
 		newNode->edgeFillColor = ofColor::green;
 	}
+	if (duplicateStack.empty()) {
+		font.drawString(display,100,580);
+	}
 }
 void DFS::algorithm() {
 	Node* poppedNode = stackFrontier.pop();
 	poppedNode->isExplored = true;
-	/*static int count = 0;*/
+	static int count = 0;
 	if (poppedNode->state == destination) {
 		destNode = poppedNode;
 	}
 	for (int i = 0; i < poppedNode->adjNodes.size(); i++)
 	{
 		auto adjNode = poppedNode->adjNodes[i];
-		adjNode->parent = poppedNode;
-		/*if (adjNode->distFromSource == 0 || adjNode->distFromSource >= count)
-			adjNode->distFromSource = count;*/
+		
+		if (count < adjNode->distFromSource) {
+			adjNode->parent = poppedNode;
+			adjNode->distFromSource = count;
+		}
 		if (!adjNode->isExplored && !stackFrontier.containsNode(adjNode))
 		{
 			/*++count;*/
 			stackFrontier.push(adjNode);
 			duplicateStack.push(adjNode);
-			//std::cout << adjNode->state << "\t" << adjNode->distFromSource << "\n";
 			algorithm();
 		}
 	}
+	count = count - 1;
 	duplicateStack.push(poppedNode);
-	/*count = count - 1;*/
 }
 void DFS::start(string sour, string dest) {
 	source = sour;
@@ -136,12 +155,7 @@ void DFS::start(string sour, string dest) {
 	while (!stackFrontier.empty())
 		algorithm();
 	Node* temp = destNode;
-	//int i = 0;
 	while (temp->state != source) {
-		/*for (int j = 0; j < stars.at(actors.at(temp->state)).size(); j++) {
-			std::cout << stars.at(actors.at(temp->state)).back() << "\n";
-		}*/
-		//std::cout << temp->state <<"\t"<< stars[actors.at(temp->state)-100].size() << "\n";
 		for (int j=0;j<stars[actors.at(temp->state)-100].size();j++){
 			int dummyId = stars[actors.at(temp->state) - 100][j];
 			for (int i = 0; i < stars[actors.at(temp->parent->state)-100].size(); i++) {
@@ -151,13 +165,16 @@ void DFS::start(string sour, string dest) {
 				}
 			}
 		}
-		//i++;
+		//std::cout << temp->state << "\n";
 		stackFrontier.push(temp);
 		temp = temp->parent;
 	}
 	stackFrontier.push(temp);
-	for (int i = 0; i < moviesNum.size(); i++) {
-		std::cout << moviesNum[i] << "\n";
+	
+	int degrees = moviesNum.size();
+	display += "The degrees of separation is " + to_string(degrees)+"\n";
+	for (int i = 0; i <degrees; i++) {
+		display += stackFrontier.stack[i]->state + " and " + stackFrontier.stack[i + 1]->state + " star in " + movies[moviesNum[i]-1] + "\n";
 	}
 	std::reverse(duplicateStack.stack.begin(), duplicateStack.stack.end());
 }

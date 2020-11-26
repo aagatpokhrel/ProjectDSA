@@ -23,7 +23,7 @@ public:
 	ofColor edgeFillColor;
 	float radius;
 	Node* parent;
-	int distFromSource = 0;
+	int distFromSource = 1000;
 	ofVec2f contentPos;
 	bool isExploredDummy;
 	bool isExplored;

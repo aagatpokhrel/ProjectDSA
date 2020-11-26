@@ -98,6 +98,7 @@ void ActorSearch::mousePressed(int x, int y, int button) {
 			dfs.start(source,destination);
 		}
 	}
+	//std::cout << x << "\t" << y << "\n
 }
 
 //--------------------------------------------------------------

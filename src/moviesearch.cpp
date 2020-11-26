@@ -104,6 +104,7 @@ void MovieSearch::mousePressed(int x, int y, int button) {
 			soundPlayer.play();
 		}
 	}
+	
 }
 
 //--------------------------------------------------------------

@@ -3,6 +3,7 @@
 #include <algorithm>
 
 BFS::BFS() {
+	font.load("font.ttf", 16);
 	boundingBox.width = ofGetWidth() - 100;
 	boundingBox.height = ofGetHeight() - 200;
 	boundingBox.x = 50;
@@ -15,7 +16,6 @@ BFS::BFS() {
 	file.open(ofToDataPath("people.csv"), ofFile::ReadWrite, false);
 	string line;
 	int pos;
-	int i = 0;
 	if (!file.is_open())
 	{
 		printf(" can't open the file ");
@@ -33,31 +33,46 @@ BFS::BFS() {
 			actors.insert(pair<string, int>(line, id));
 		}
 	}
-
-	/*undiscoveredFill = ofColor::grey;
-
-	for (int i = 0; i < NODES_NUM; i++)
+	file.open(ofToDataPath("stars.csv"), ofFile::ReadWrite, false);
+	string markup;
+	int index;
+	if (!file.is_open())
 	{
-		Node node(i);
-		node.setup(ofVec2f(graph[i][0], graph[i][1]),undiscoveredFill);
-		graphVec.push_back(node);
+		printf(" can't open the file ");
+		return;
 	}
-
-	for (int i = 0; i < NODES_NUM; i++)
+	//vector<int> movieIds;
+	while (getline(file, markup))
 	{
-		for (int j = 0;j <NODES_NUM; j++)
+		while ((index = markup.find(',')) >= 0)
 		{
-			if (adjMat[i][j] == 1) {
-				auto src = &graphVec.at(i);
-				auto dest = &graphVec.at(j);
-
-				src->addAdjNode(dest);
-				dest->addAdjNode(src);
-
-			}
-		}*/
-		//}
-
+			string field = markup.substr(0, index);
+			markup = markup.substr(index + 1);
+			int actorId = 0;
+			stringstream fummy(field);
+			fummy >> actorId;
+			int movieId = 0;
+			stringstream gummy(markup);
+			gummy >> movieId;
+			stars[actorId - 100].push_back(movieId);
+		}
+	}
+	file.open(ofToDataPath("movies.csv"), ofFile::ReadWrite, false);
+	string lines;
+	int position;
+	if (!file.is_open())
+	{
+		printf(" can't open the file ");
+		return;
+	}
+	while (getline(file, lines))
+	{
+		while ((position = lines.find(',')) >= 0)
+		{
+			lines = lines.substr(position + 1);
+			movies.push_back(lines);
+		}
+	}
 }
 void BFS::reset() {
 	for (graph.graph_it = graph.graphVec.begin(); graph.graph_it != graph.graphVec.end(); graph.graph_it++)
@@ -69,111 +84,90 @@ void BFS::reset() {
 	}
 }
 void BFS::update() {
-	//draw();
-	//Sleep(1000);
 }
 
 void BFS::draw() {
-	//ofPushMatrix();
-	//ofTranslate(ofGetWidth() / 2, ofGetHeight() / 2);
-
-	/*ofNoFill();
-	ofSetColor(ofColor::white);
-	ofDrawRectangle(boundingBox);*/
-
-	/*for (stackFrontier.it = stackFrontier.stack.begin(); stackFrontier.it != stackFrontier.stack.end(); ++stackFrontier.it) {
-		stackFrontier.it->draw();
-	}*/
-
-	/*for(graph_it=graphVec.begin();graph_it!=graphVec.end(); ++graph_it)
-	{
-		graph_it->draw();
-	}*/
+	
 	if (!duplicateQueue.empty()) {
-		poppedNode = duplicateQueue.pop();
-		poppedNode->isExploredDummy = true;
-		for (int i = 0; i < poppedNode->adjNodes.size(); i++)
-		{
-			auto adjNode = poppedNode->adjNodes[i];
-			if (!adjNode->isExploredDummy && !queueFrontier.containsNode(adjNode))
-			{
-				adjNode->fillColor = discoveredFill;
-			}
-			else if (adjNode->state == source || adjNode->state == destination) {
-				adjNode->fillColor = foundFill;
-			}
-			else {
-				continue;
-			}
-		}
-		//poppedNode->fillColor = doneFill;
-
-		this_thread::sleep_for(chrono::milliseconds(1500));
-	}
-
-	for (graph.graph_it = graph.graphVec.begin(); graph.graph_it != graph.graphVec.end(); graph.graph_it++)
-	{
-		graph.graph_it->draw();
-	}
-	if (!duplicateQueue.empty()) {
-		poppedNode->fillColor = doneFill;
+		Node *poppedNode = duplicateQueue.pop();
+		//std::cout << poppedNode->state << "\n";
 		poppedNode->edgeFillColor = ofColor::white;
-		if (poppedNode->state == source || poppedNode->state == destination) {
+		if (!poppedNode->isExploredDummy && duplicateQueue.containsNode(poppedNode)) {
+			poppedNode->isExploredDummy = true;
+			poppedNode->fillColor = discoveredFill;
+		}
+		else if (poppedNode->state == source || poppedNode->state == destination) {
 			poppedNode->fillColor = foundFill;
 		}
-		this_thread::sleep_for(chrono::milliseconds(500));
+		else if (poppedNode->isExploredDummy) {
+			poppedNode->fillColor = doneFill;
+		}
+		this_thread::sleep_for(chrono::milliseconds(800));
 	}
 	for (graph.graph_it = graph.graphVec.begin(); graph.graph_it != graph.graphVec.end(); graph.graph_it++)
 	{
 		graph.graph_it->draw();
 	}
-	//ofPopMatrix();
+	while (!queueFrontier.empty() && duplicateQueue.empty()) {
+		Node* newNode = queueFrontier.pop();
+		newNode->edgeFillColor = ofColor::green;
+	}
+	if (duplicateQueue.empty()) {
+		font.drawString(display, 100, 580);
+	}
 }
 
 void BFS::start(string sour, string dest) {
-	/*draw();
-	update();*/
-	//Sleep(2000);
 	source = sour;
 	destination = dest;
 
-	//std::cout << source << destination;
-	//dfs algorithm
 	int s = actors.at(source) - 100;
 	int d = actors.at(destination) - 100;
-	std::cout << s << d;
 	queueFrontier.push(&graph.graphVec[s]);
 	duplicateQueue.push(&graph.graphVec[s]);
-	/*for (int i = 0; i < stackFrontier.stack.size(); i++)
-	{
-		stackFrontier.stack[i]->fillColor = ofColor::red;
-	}*/
-
+	int count = 0;
 	while (!queueFrontier.empty()) {
 		Node* poppedNode = queueFrontier.pop();
-		//poppedNode->fillColor = currentFill;
+		if (poppedNode->state == destination) {
+			destNode = poppedNode;
+		}
 		poppedNode->isExplored = true;
-
+		count++;
 		for (int i = 0; i < poppedNode->adjNodes.size(); i++)
 		{
 			auto adjNode = poppedNode->adjNodes[i];
+			if (count < adjNode->distFromSource) {
+				adjNode->parent = poppedNode;
+				adjNode->distFromSource = count;
+			}
 			if (!adjNode->isExplored && !queueFrontier.containsNode(adjNode))
 			{
 				queueFrontier.push(adjNode);
 				duplicateQueue.push(adjNode);
-				//adjNode->fillColor = discoveredFill;
-
-
-				//update();
 			}
 		}
-
-		//poppedNode->fillColor = doneFill;
-		//poppedNode->edgeFillColor = ofColor::darkGreen;
-		//update();
-
-		//std::cout << poppedNode->state << " done." << std::endl;
+		duplicateQueue.push(poppedNode);
 	}
-	//std::reverse(queueFrontier.queue.begin(), queueFrontier.queue.end());
-	//td::reverse(duplicateQueue.queue.begin(), duplicateQueue.queue.end());
+	
+	Node* temp = destNode;
+	while (temp->state != source) {
+		for (int j=0;j<stars[actors.at(temp->state)-100].size();j++){
+			int dummyId = stars[actors.at(temp->state) - 100][j];
+			for (int i = 0; i < stars[actors.at(temp->parent->state)-100].size(); i++) {
+				if (dummyId == stars[actors.at(temp->parent->state) - 100][i]) {
+					moviesNum.push_back(dummyId);
+					break;
+				}
+			}
+		}
+		queueFrontier.push(temp);
+		temp = temp->parent;
+	}
+	queueFrontier.push(temp);
+
+	int degrees = moviesNum.size();
+	display += "The degrees of separation is " + to_string(degrees) + "\n";
+	for (int i = 0; i < degrees; i++) {
+		display += queueFrontier.queue[i]->state + " and " + queueFrontier.queue[i + 1]->state + " star in " + movies[moviesNum[i] - 1] + "\n";
+	}
 }
