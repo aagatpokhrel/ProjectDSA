@@ -75,6 +75,7 @@ BFS::BFS() {
 	}
 }
 void BFS::reset() {
+	display = "";
 	for (graph.graph_it = graph.graphVec.begin(); graph.graph_it != graph.graphVec.end(); graph.graph_it++)
 	{
 		graph.graph_it->fillColor = ofColor::grey;
@@ -113,7 +114,7 @@ void BFS::draw() {
 		newNode->edgeFillColor = ofColor::green;
 	}
 	if (duplicateQueue.empty()) {
-		font.drawString(display, 100, 580);
+		font.drawString(display, 200, 600);
 	}
 }
 
@@ -122,7 +123,7 @@ void BFS::start(string sour, string dest) {
 	destination = dest;
 
 	int s = actors.at(source) - 100;
-	int d = actors.at(destination) - 100;
+	int d = actors.at(destination) - 100; // error
 	queueFrontier.push(&graph.graphVec[s]);
 	duplicateQueue.push(&graph.graphVec[s]);
 	int count = 0;

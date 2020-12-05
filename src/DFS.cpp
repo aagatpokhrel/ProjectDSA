@@ -76,6 +76,7 @@ DFS::DFS() {
 
 }
 void DFS::reset() {
+	display = "";
 	for (graph.graph_it = graph.graphVec.begin(); graph.graph_it != graph.graphVec.end(); graph.graph_it++)
 	{
 		graph.graph_it->fillColor = ofColor::grey;
@@ -115,7 +116,7 @@ void DFS::draw() {
 		newNode->edgeFillColor = ofColor::green;
 	}
 	if (duplicateStack.empty()) {
-		font.drawString(display,100,580);
+		font.drawString(display,200,600);
 	}
 }
 void DFS::algorithm() {
@@ -149,7 +150,7 @@ void DFS::start(string sour, string dest) {
 	destination = dest;
 	
 	int s = actors.at(source)-100;
-	int d = actors.at(destination)-100;
+	int d = actors.at(destination)-100; // error
 	stackFrontier.push(&graph.graphVec[s]);
 	duplicateStack.push(&graph.graphVec[s]);
 	while (!stackFrontier.empty())
