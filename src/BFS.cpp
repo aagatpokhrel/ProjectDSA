@@ -121,8 +121,12 @@ void BFS::draw() {
 void BFS::start(string sour, string dest) {
 	source = sour;
 	destination = dest;
-
+	std::cout << destination;
+	/*for (int i = 0; i < actors.size(); i++) {
+		std::cout << actors[i].first << "\t" << actors[i].second << "\n";
+	}*/
 	int s = actors.at(source) - 100;
+	
 	int d = actors.at(destination) - 100; // error
 	queueFrontier.push(&graph.graphVec[s]);
 	duplicateQueue.push(&graph.graphVec[s]);
