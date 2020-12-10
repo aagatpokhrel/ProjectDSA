@@ -83,6 +83,9 @@ void BFS::reset() {
 		graph.graph_it->isExplored = false;
 		graph.graph_it->isExploredDummy = false;
 	}
+	queueFrontier.queue.clear();
+	duplicateQueue.queue.clear();
+	moviesNum.clear();
 }
 void BFS::update() {
 }
@@ -111,23 +114,31 @@ void BFS::draw() {
 	}
 	while (!queueFrontier.empty() && duplicateQueue.empty()) {
 		Node* newNode = queueFrontier.pop();
-		newNode->edgeFillColor = ofColor::green;
+		//newNode->edgeFillColor = ofColor::green;
 	}
 	if (duplicateQueue.empty()) {
-		font.drawString(display, 200, 600);
+		font.drawString(display, 300, 700);
 	}
 }
 
 void BFS::start(string sour, string dest) {
 	source = sour;
 	destination = dest;
-	std::cout << destination;
-	/*for (int i = 0; i < actors.size(); i++) {
-		std::cout << actors[i].first << "\t" << actors[i].second << "\n";
-	}*/
-	int s = actors.at(source) - 100;
-	
-	int d = actors.at(destination) - 100; // error
+	int isValid = 0;
+	std::map<string, int>::iterator it;
+	for (it = actors.begin();it!=actors.end(); it++) {
+		if (it->first == source)
+			isValid = isValid+1;
+		if (it->first == destination)
+			isValid = isValid + 1;
+	}
+	if (isValid != 2) {
+		display = "Please Search Properly";
+		return;
+	}
+	int s = 0, d = 0;
+	s = actors.at(source) - 100;
+	d = actors.at(destination) - 100;
 	queueFrontier.push(&graph.graphVec[s]);
 	duplicateQueue.push(&graph.graphVec[s]);
 	int count = 0;
@@ -153,12 +164,11 @@ void BFS::start(string sour, string dest) {
 		}
 		duplicateQueue.push(poppedNode);
 	}
-	
 	Node* temp = destNode;
 	while (temp->state != source) {
-		for (int j=0;j<stars[actors.at(temp->state)-100].size();j++){
+		for (int j = 0; j < stars[actors.at(temp->state) - 100].size(); j++) {
 			int dummyId = stars[actors.at(temp->state) - 100][j];
-			for (int i = 0; i < stars[actors.at(temp->parent->state)-100].size(); i++) {
+			for (int i = 0; i < stars[actors.at(temp->parent->state) - 100].size(); i++) {
 				if (dummyId == stars[actors.at(temp->parent->state) - 100][i]) {
 					moviesNum.push_back(dummyId);
 					break;
@@ -166,6 +176,7 @@ void BFS::start(string sour, string dest) {
 			}
 		}
 		queueFrontier.push(temp);
+		std::cout << temp->state;
 		temp = temp->parent;
 	}
 	queueFrontier.push(temp);
@@ -175,4 +186,6 @@ void BFS::start(string sour, string dest) {
 	for (int i = 0; i < degrees; i++) {
 		display += queueFrontier.queue[i]->state + " and " + queueFrontier.queue[i + 1]->state + " star in " + movies[moviesNum[i] - 1] + "\n";
 	}
+
+	
 }

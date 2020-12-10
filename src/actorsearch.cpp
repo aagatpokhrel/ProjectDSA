@@ -87,7 +87,6 @@ void ActorSearch::mousePressed(int x, int y, int button) {
 		if (backRect.inside(x, y)) {
 			dfs.reset();
 			screenNum = 0;
-			dfs.reset();
 			soundPlayer.play();
 		}
 	}

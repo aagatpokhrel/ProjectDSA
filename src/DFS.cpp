@@ -84,6 +84,9 @@ void DFS::reset() {
 		graph.graph_it->isExplored = false;
 		graph.graph_it->isExploredDummy = false;
 	}
+	stackFrontier.stack.clear();
+	duplicateStack.stack.clear();
+	moviesNum.clear();
 }
 void DFS::update() {
 	
@@ -113,10 +116,10 @@ void DFS::draw() {
 	}
 	while (!stackFrontier.empty() && duplicateStack.empty()) {
 		Node* newNode = stackFrontier.pop();
-		newNode->edgeFillColor = ofColor::green;
+		//newNode->edgeFillColor = ofColor::green;
 	}
 	if (duplicateStack.empty()) {
-		font.drawString(display,200,600);
+		font.drawString(display,300,700);
 	}
 }
 void DFS::algorithm() {
@@ -148,13 +151,27 @@ void DFS::algorithm() {
 void DFS::start(string sour, string dest) {
 	source = sour;
 	destination = dest;
-	
-	int s = actors.at(source)-100;
-	int d = actors.at(destination)-100; // error
+	int isValid = 0;
+	std::map<string, int>::iterator it;
+	for (it = actors.begin(); it != actors.end(); it++) {
+		if (it->first == source)
+			isValid = isValid + 1;
+		if (it->first == destination)
+			isValid = isValid + 1;
+	}
+	if (isValid != 2) {
+		display = "Please Search Properly";
+		return;
+	}
+	int s = 0, d = 0;
+	s = actors.at(source)-100;
+	d = actors.at(destination)-100; 
+	//std::cout << s << d << "\n";
 	stackFrontier.push(&graph.graphVec[s]);
 	duplicateStack.push(&graph.graphVec[s]);
-	while (!stackFrontier.empty())
+	while (!stackFrontier.empty()) {
 		algorithm();
+	}
 	Node* temp = destNode;
 	while (temp->state != source) {
 		for (int j=0;j<stars[actors.at(temp->state)-100].size();j++){
